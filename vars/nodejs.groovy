@@ -1,8 +1,16 @@
 def lintcheck() {
    sh '''
+        # we want Devs to handle the lint checks failure
+        # npm i jslint
+        # node_modules/jslint/bin/jslint.js server.js || true 
         echo starting lint checks
-        echo lint checks completed
+        echo lint checks completed for ${COMPONent}
     ''' 
+}
+def sonarchecks() {
+      sh '''
+            sonar-scanner -Dsonar.host.url=http://172.31.90.254:9000  -Dsonar.sources=. -Dsonar.projectKey=${COMPONENT}
+        '''
 }
 
 def call() {
